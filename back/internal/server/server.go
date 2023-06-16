@@ -4,14 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	"net/http"
 	"time"
 )
 
 //go:generate foggo afop --struct Server --no-instance
 type Server struct {
-	router Router       `foggo:"-"`
-	http   *http.Server `foggo:"-"`
+	http *http.Server `foggo:"-"`
 
 	Port    int
 	Address string
@@ -29,11 +29,11 @@ const (
 func defaultServerOptions() *Server {
 	return &Server{
 		Port:    8080,
-		Address: "0.0.0.0",
+		Address: "127.0.0.1",
 	}
 }
 
-func NewServer(router Router, opts ...ServerOption) IServer {
+func NewServer(router *chi.Mux, opts ...ServerOption) IServer {
 
 	srvOpts := defaultServerOptions()
 	for _, opt := range opts {
@@ -42,7 +42,7 @@ func NewServer(router Router, opts ...ServerOption) IServer {
 
 	srv := &http.Server{
 		Addr:                         fmt.Sprintf("%s:%d", srvOpts.Address, srvOpts.Port),
-		Handler:                      router.Handler(),
+		Handler:                      router,
 		DisableGeneralOptionsHandler: false,
 		TLSConfig:                    nil,
 		ReadTimeout:                  timeoutDuration,
@@ -50,7 +50,7 @@ func NewServer(router Router, opts ...ServerOption) IServer {
 		WriteTimeout:                 timeoutDuration,
 		IdleTimeout:                  5 * timeoutDuration,
 	}
-	return &Server{router: router, http: srv}
+	return &Server{http: srv}
 }
 
 func (s Server) ListenAndServe() error {

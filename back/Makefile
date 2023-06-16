@@ -15,3 +15,9 @@ generate: ## Generate automated code
 	go install github.com/golang/mock/mockgen@v1.6.0
 	go install github.com/ervitis/foggo@v0.0.6
 	go generate ./...
+
+http-run: ## Execute the http server, it needs the OPENAI_TOKEN to run properly
+	OPENAI_TOKEN=$(OPENAI_TOKEN); go run ./cmd/server/main.go
+
+http-compile: ## Compile the http server
+	go build -ldflags="-s -w" -o ./cmd/server/http_server ./cmd/server/main.go
