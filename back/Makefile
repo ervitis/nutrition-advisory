@@ -17,7 +17,7 @@ generate: ## Generate automated code
 	go generate ./...
 
 http-run: ## Execute the http server, it needs the OPENAI_TOKEN to run properly
-	OPENAI_TOKEN=$(OPENAI_TOKEN); go run ./cmd/server/main.go
+	OPENAI_TOKEN=$(OPENAI_TOKEN) go run ./cmd/server/main.go
 
 http-compile: ## Compile the http server
 	go build -ldflags="-s -w" -o ./cmd/server/http_server ./cmd/server/main.go

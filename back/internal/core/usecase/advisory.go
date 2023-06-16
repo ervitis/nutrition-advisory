@@ -2,11 +2,11 @@ package usecase
 
 import (
 	"context"
-	"fmt"
-	"github.com/ervitis/nutrition-advisory/back/internal/core/domain"
-	"github.com/sashabaranov/go-openai"
 	"log"
 	"os"
+
+	"github.com/ervitis/nutrition-advisory/back/internal/core/domain"
+	"github.com/sashabaranov/go-openai"
 )
 
 type advisory struct {
@@ -41,8 +41,6 @@ func (a advisory) Question(ctx context.Context, adv domain.Advisory) (domain.Adv
 	if err != nil {
 		return domain.Advisory{}, err
 	}
-
-	fmt.Printf("response: %+v", resp)
 
 	return domain.Advisory{Message: resp.Choices[0].Message.Content}, nil
 }

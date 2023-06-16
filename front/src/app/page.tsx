@@ -34,11 +34,12 @@ export default function Home() {
             setTimeout(() => {
                 if (!wsCurrent.current || wsCurrent.current.CLOSED) {
                     wsCurrent.current = new WebSocket("ws://127.0.0.1:8080/advisory")
+                    setConnected(true)
                     return
                 }
             }, r)
         }
-    }, [wsCurrent.current])
+    }, [wsCurrent])
 
     React.useEffect((): any => {
         wsCurrent.current = new WebSocket("ws://127.0.0.1:8080/advisory")
@@ -52,26 +53,24 @@ export default function Home() {
             retryConnectionCallback()
             if (!wsCurrent.current || wsCurrent.current.CLOSED || wsCurrent.current.CONNECTING) {
                 setAdvise({question: 'Error: reload page'})
-                console.log('reload page')
+                setConnected(false)
             }
         }
         wsCurrent.current.onmessage = (ev) => {
-            console.log('raw: ', ev)
-            console.log('msg: ', JSON.parse(ev.data))
             const data: Response = JSON.parse(ev.data)
             setAdvise({question: data.advise})
             setLoading(false)
         }
-    }, [wsCurrent, connected, setLoading])
+    }, [wsCurrent, connected, setLoading, retryConnectionCallback])
 
     const sendQuestion = React.useCallback((advise: Advise) => {
-        if (!wsCurrent.current || wsCurrent.current.CONNECTING) {
+        if (!wsCurrent.current || !connected) {
             retryConnectionCallback()
             return
         }
 
         wsCurrent.current.send(JSON.stringify(advise))
-    }, [wsCurrent, retryConnectionCallback])
+    }, [wsCurrent, retryConnectionCallback, connected])
 
     const onSubmitAdvise = React.useCallback((ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
