@@ -20,6 +20,8 @@ These instructions will give you a copy of the project up and running on your lo
 
 - Backend:
 
+We need the OPENAI_TOKEN for making requests
+
 ```bash
 OPENAI_TOKEN=${OPENAI_TOKEN} make http-run
 ```
