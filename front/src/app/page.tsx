@@ -98,10 +98,10 @@ export default function Home() {
                 <div className={"grid gap-4"}>
                     <form onSubmit={onSubmitAdvise}>
                         <div className={"col-auto p-2"}>
-                            <label htmlFor="nWeight" className={"mb-4 text-sm font-medium text-black"}>Weight
+                            <label htmlFor="nWeight" className={"mb-4 text-xl font-medium text-black"}>Weight
                                 (Kg)</label>
                             <input type="number" id="nWeight" min="10" max="200"
-                                   className={"block w-full p-1.5 bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"}
+                                   className={"block w-full p-1.5 bg-gray-50 border border-gray-300 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500"}
                                    onChange={(e) => setFormAdvice((old) => ({
                                        ...old,
                                        weight: parseInt(e.target.value)
@@ -110,10 +110,10 @@ export default function Home() {
                         </div>
 
                         <div className={"col-auto p-2"}>
-                            <label htmlFor="nCalories" className={"mb-4 text-sm font-medium text-black"}>Max calories in
+                            <label htmlFor="nCalories" className={"mb-4 text-xl font-medium text-black"}>Max calories in
                                 a day</label>
                             <input type="number" id="nCalories" min="500" max="5000"
-                                   className={"block w-full p-1.5 bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"}
+                                   className={"block w-full p-1.5 bg-gray-50 border border-gray-300 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500"}
                                    onChange={(e) => setFormAdvice((old) => ({
                                        ...old,
                                        calories: parseInt(e.target.value)
@@ -123,16 +123,16 @@ export default function Home() {
 
                         <div className={"col-auto p-2"}>
                             <label htmlFor="txtIngredients"
-                                   className={"mb-4 text-sm font-medium text-black"}>Ingredients</label>
+                                   className={"mb-4 text-xl font-medium text-black"}>Ingredients</label>
                             <textarea id="txtIngredients" cols={20} rows={5}
                                       onChange={(e) => setFormAdvice((old) => ({...old, ingredients: e.target.value}))}
-                                      className={"resize-none block p-1.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"}
+                                      className={"resize-none block p-1.5 w-full text-xl text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"}
                                       required={true}></textarea>
                         </div>
 
                         <div className={"col-auto p-2 place-items-center items-center"}>
                             <button type={"submit"}
-                                    className={"text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"}
+                                    className={"text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"}
                                     disabled={loading}
                             >
                                 Send
@@ -143,7 +143,7 @@ export default function Home() {
 
                 <div className={"grid gap-4 p-4"}>
                     <div className={"grid place-items-center"}>
-                        <div id="respAdvise">Advice: {advise?.question ?? 'no response'}</div>
+                        <div id="respAdvise" className={"text-xl"}>Advice: {advise?.question ?? 'no response'}</div>
                     </div>
                 </div>
             </div>
